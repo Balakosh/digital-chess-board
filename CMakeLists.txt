@@ -5,22 +5,10 @@ set(CMAKE_CXX_STANDARD 23)
 
 set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
 
-add_executable(${CMAKE_PROJECT_NAME} main.cpp
-        test/hello_test.cc)
+include_directories(include)
+add_subdirectory(src)
 
-add_subdirectory("thirdparty/googletest")
-
+# Add the tests directory
 enable_testing()
-
-add_executable(
-        hello_test
-        test/hello_test.cc
-)
-target_link_libraries(
-        hello_test
-        GTest::gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(hello_test)
-
+add_subdirectory(thirdparty/googletest)
+add_subdirectory(test)

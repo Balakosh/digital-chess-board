@@ -26,5 +26,9 @@ include_directories(
         ${CMAKE_SOURCE_DIR}/thirdparty/Stockfish/src
 )
 
+# Add the library target
+add_library(digital-chess-board-lib ${SOURCES})
+
 # Add the executable target
-add_executable(digital-chess-board ${SOURCES})
+add_executable(digital-chess-board main.cpp)
+target_link_libraries(digital-chess-board digital-chess-board-lib)

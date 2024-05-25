@@ -3,6 +3,8 @@
 # Gather source files for your project
 set(SOURCES
         main.cpp
+        ../include/pgn.h
+        pgn.cpp
         # Add other project-specific source files here if needed
 )
 

@@ -13,19 +13,19 @@ std::string piece_to_string_converter::convert(Stockfish::Piece piece) {
             return "";
         case Stockfish::W_KNIGHT:
         case Stockfish::B_KNIGHT:
-            return "n";
+            return "N";
         case Stockfish::W_BISHOP:
         case Stockfish::B_BISHOP:
-            return "b";
+            return "B";
         case Stockfish::W_ROOK:
         case Stockfish::B_ROOK:
-            return "r";
+            return "R";
         case Stockfish::W_QUEEN:
         case Stockfish::B_QUEEN:
-            return "q";
+            return "Q";
         case Stockfish::W_KING:
         case Stockfish::B_KING:
-            return "k";
+            return "K";
         default:
             return "unknown";
     }

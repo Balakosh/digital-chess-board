@@ -22,8 +22,17 @@ INSTANTIATE_TEST_SUITE_P(
         PieceToStringTests,
         PieceToStringConverterTest,
         ::testing::Values(
-                PieceToStringTestParams{Stockfish::B_BISHOP, "B"},
+                PieceToStringTestParams{Stockfish::W_ROOK, "R"},
+                PieceToStringTestParams{Stockfish::W_KNIGHT, "N"},
+                PieceToStringTestParams{Stockfish::W_BISHOP, "B"},
+                PieceToStringTestParams{Stockfish::W_QUEEN, "Q"},
                 PieceToStringTestParams{Stockfish::W_KING, "K"},
-                PieceToStringTestParams{Stockfish::B_KNIGHT, "N"}
+                PieceToStringTestParams{Stockfish::W_PAWN, ""},
+                PieceToStringTestParams{Stockfish::B_ROOK, "R"},
+                PieceToStringTestParams{Stockfish::B_KNIGHT, "N"},
+                PieceToStringTestParams{Stockfish::B_BISHOP, "B"},
+                PieceToStringTestParams{Stockfish::B_QUEEN, "Q"},
+                PieceToStringTestParams{Stockfish::B_KING, "K"},
+                PieceToStringTestParams{Stockfish::B_PAWN, ""}
         )
 );

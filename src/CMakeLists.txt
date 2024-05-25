@@ -5,6 +5,8 @@ set(SOURCES
         main.cpp
         ../include/pgn.h
         pgn.cpp
+        piece_to_string_converter.cpp
+        ../include/piece_to_string_converter.h
         # Add other project-specific source files here if needed
 )
 

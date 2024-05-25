@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "pgn.h"
+#include "piece_to_string_converter.h"
 
 void pgn::record_move(Stockfish::Move move, Stockfish::Position& pos) {
     const std::string move_stirng = move_to_string(move, pos);
@@ -14,6 +15,7 @@ void pgn::record_move(Stockfish::Move move, Stockfish::Position& pos) {
 std::string pgn::move_to_string(Stockfish::Move move, Stockfish::Position& pos)
 {
     Stockfish::Piece piece = pos.piece_on(move.from_sq());
+    const std::string piece_str = piece_to_string_converter::convert(piece);
 
     return "";
 }

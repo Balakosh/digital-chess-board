@@ -11,9 +11,8 @@ int main() {
     Stockfish::Bitboard bitboard;
     Stockfish::StateInfo si = {};
 
-    // Set up the position using a FEN string
-    std::string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"; // Starting position
-    pos.set(fenStr, false, &si);
+    std::string start_position = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    pos.set(start_position, false, &si);
     Stockfish::Move move(Stockfish::SQ_E2, Stockfish::SQ_E4);
     const bool is_legal_move = pos.legal(move);
     std::cout << "is_legal_move: " << is_legal_move << std::endl;
@@ -23,7 +22,6 @@ int main() {
     Stockfish::Piece piece = pos.piece_on(Stockfish::Square::SQ_A1);
     std::cout << "piece: " << piece << std::endl;
 
-    // Call the fen() method and print the FEN string
     std::cout << "FEN: " << pos.fen() << std::endl;
     std::cout << "bitboard: " << Stockfish::Bitboards::pretty(bitboard) << std::endl;
 

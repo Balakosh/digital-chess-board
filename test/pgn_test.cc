@@ -47,6 +47,9 @@ INSTANTIATE_TEST_SUITE_P(
                 PGNTestParams{"rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2", Stockfish::Square::SQ_F1, Stockfish::Square::SQ_C4, "Bc4"},
                 PGNTestParams{"rnbqkb1r/pppppppp/5n2/8/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 2 2", Stockfish::Square::SQ_H8, Stockfish::Square::SQ_G8, "Rg8"},
                 PGNTestParams{"rnbqkbr1/pppppppp/5n2/8/2B1P3/8/PPPP1PPP/RNBQK1NR w KQq - 3 3", Stockfish::Square::SQ_E1, Stockfish::Square::SQ_F1, "Kf1"},
-                PGNTestParams{"rnbqkbr1/pppppppp/5n2/8/2B1P3/8/PPPP1PPP/RNBQ1KNR b q - 4 3", Stockfish::Square::SQ_F6, Stockfish::Square::SQ_E4, "Nxe4"}
+                PGNTestParams{"rnbqkbr1/pppppppp/5n2/8/2B1P3/8/PPPP1PPP/RNBQ1KNR b q - 4 3", Stockfish::Square::SQ_F6, Stockfish::Square::SQ_E4, "Nxe4"},
+                PGNTestParams{"rnbqkbr1/pppppppp/8/8/2B1n3/8/PPPP1PPP/RNBQ1KNR w q - 0 4", Stockfish::Square::SQ_D1, Stockfish::Square::SQ_F3, "Qf3"},
+                PGNTestParams{"rnbqkbr1/pppppppp/8/8/2B1n3/5Q2/PPPP1PPP/RNB2KNR b q - 1 4", Stockfish::Square::SQ_E4, Stockfish::Square::SQ_F2, "Nxf2"},
+                PGNTestParams{"rnbqkbr1/pppppppp/8/8/2B5/5Q2/PPPP1nPP/RNB2KNR w q - 0 5", Stockfish::Square::SQ_F3, Stockfish::Square::SQ_F2, "Qxf2"}
         )
 );

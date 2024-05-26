@@ -1,9 +1,16 @@
 #include <gtest/gtest.h>
+#include <string>
 
 #include "../include/pgn.h"
 #include "../thirdparty/Stockfish/src/types.h"
 
-class PGNTest : public ::testing::Test {
+struct PGNTestParams {
+    Stockfish::Square from;
+    Stockfish::Square to;
+    std::string expected_move;
+};
+
+class PGNTest : public ::testing::TestWithParam<PGNTestParams> {
 protected:
     Stockfish::Position pos;
     Stockfish::StateInfo si;
@@ -20,20 +27,20 @@ protected:
     }
 };
 
-TEST_F(PGNTest, Pawn_to_e4) {
-    const std::string move = pgn::move_to_string(Stockfish::Square::SQ_E2, Stockfish::Square::SQ_E4, pos);
+TEST_P(PGNTest, MoveToStringTest) {
+    const auto& params = GetParam();
+    const std::string move = pgn::move_to_string(params.from, params.to, pos);
 
-    ASSERT_EQ("e4", move);
+    ASSERT_EQ(params.expected_move, move);
 }
 
-TEST_F(PGNTest, Pawn_to_d4) {
-    const std::string move = pgn::move_to_string(Stockfish::Square::SQ_D2, Stockfish::Square::SQ_D4, pos);
-
-    ASSERT_EQ("d4", move);
-}
-
-TEST_F(PGNTest, Knight_f3) {
-    const std::string move = pgn::move_to_string(Stockfish::Square::SQ_G1, Stockfish::Square::SQ_F3, pos);
-
-    ASSERT_EQ("Nf3", move);
-}
+INSTANTIATE_TEST_SUITE_P(
+        PGNTests,
+        PGNTest,
+        ::testing::Values(
+                PGNTestParams{Stockfish::Square::SQ_E2, Stockfish::Square::SQ_E4, "e4"},
+                PGNTestParams{Stockfish::Square::SQ_D2, Stockfish::Square::SQ_D4, "d4"},
+                PGNTestParams{Stockfish::Square::SQ_G1, Stockfish::Square::SQ_F3, "Nf3"},
+                PGNTestParams{Stockfish::Square::SQ_G8, Stockfish::Square::SQ_F6, "Nf6"}
+        )
+);

@@ -16,7 +16,7 @@ void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::P
 std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos)
 {
     Stockfish::Move move(from, to);
-    const bool is_legal_move = pos.legal(move);
+    const bool is_legal_move = pos.legal(move) && pos.pseudo_legal(move);
 
     if (is_legal_move) {
         Stockfish::Piece piece = pos.piece_on(move.from_sq());

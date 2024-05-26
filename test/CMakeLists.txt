@@ -5,7 +5,6 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 # Link test executable against gtest & gtest_main
 add_executable(runTests
-        hello_test.cc
         pgn_test.cc
         piece_to_string_converter_test.cc
         square_to_string_converter_test.cc

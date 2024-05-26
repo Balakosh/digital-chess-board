@@ -42,6 +42,7 @@ INSTANTIATE_TEST_SUITE_P(
                 PGNTestParams{"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Stockfish::Square::SQ_D2, Stockfish::Square::SQ_D4, "d4"},
                 PGNTestParams{"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Stockfish::Square::SQ_G1, Stockfish::Square::SQ_F3, "Nf3"},
                 PGNTestParams{"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Stockfish::Square::SQ_B1, Stockfish::Square::SQ_C3, "Nc3"},
+                PGNTestParams{"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Stockfish::Square::SQ_A1, Stockfish::Square::SQ_H8, "illegal move!"},
                 PGNTestParams{"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", Stockfish::Square::SQ_G8, Stockfish::Square::SQ_F6, "Nf6"}
         )
 );

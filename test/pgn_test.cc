@@ -41,6 +41,6 @@ INSTANTIATE_TEST_SUITE_P(
                 PGNTestParams{Stockfish::Square::SQ_E2, Stockfish::Square::SQ_E4, "e4"},
                 PGNTestParams{Stockfish::Square::SQ_D2, Stockfish::Square::SQ_D4, "d4"},
                 PGNTestParams{Stockfish::Square::SQ_G1, Stockfish::Square::SQ_F3, "Nf3"},
-                PGNTestParams{Stockfish::Square::SQ_G8, Stockfish::Square::SQ_F6, "Nf6"}
+                PGNTestParams{Stockfish::Square::SQ_B1, Stockfish::Square::SQ_C3, "Nc3"}
         )
 );

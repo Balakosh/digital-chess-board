@@ -43,6 +43,10 @@ INSTANTIATE_TEST_SUITE_P(
                 PGNTestParams{"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Stockfish::Square::SQ_G1, Stockfish::Square::SQ_F3, "Nf3"},
                 PGNTestParams{"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Stockfish::Square::SQ_B1, Stockfish::Square::SQ_C3, "Nc3"},
                 PGNTestParams{"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", Stockfish::Square::SQ_A1, Stockfish::Square::SQ_H8, "illegal move!"},
-                PGNTestParams{"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", Stockfish::Square::SQ_G8, Stockfish::Square::SQ_F6, "Nf6"}
+                PGNTestParams{"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", Stockfish::Square::SQ_G8, Stockfish::Square::SQ_F6, "Nf6"},
+                PGNTestParams{"rnbqkb1r/pppppppp/5n2/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2", Stockfish::Square::SQ_F1, Stockfish::Square::SQ_C4, "Bc4"},
+                PGNTestParams{"rnbqkb1r/pppppppp/5n2/8/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 2 2", Stockfish::Square::SQ_H8, Stockfish::Square::SQ_G8, "Rg8"},
+                PGNTestParams{"rnbqkbr1/pppppppp/5n2/8/2B1P3/8/PPPP1PPP/RNBQK1NR w KQq - 3 3", Stockfish::Square::SQ_E1, Stockfish::Square::SQ_F1, "Kf1"},
+                PGNTestParams{"rnbqkbr1/pppppppp/5n2/8/2B1P3/8/PPPP1PPP/RNBQ1KNR b q - 4 3", Stockfish::Square::SQ_F6, Stockfish::Square::SQ_E4, "Nxe4"}
         )
 );

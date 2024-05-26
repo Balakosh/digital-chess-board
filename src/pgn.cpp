@@ -20,10 +20,12 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
 
     if (is_legal_move) {
         Stockfish::Piece piece = pos.piece_on(move.from_sq());
+        const bool is_capture = pos.capture(move);
         const std::string piece_str = piece_to_string_converter::convert(piece);
         const std::string square_str = square_to_string_converter::convert(to);
+        const std::string capture_str = is_capture ? "x" : "";
 
-        return piece_str + square_str;
+        return piece_str + capture_str + square_str;
     } else {
         return "illegal move!";
     }

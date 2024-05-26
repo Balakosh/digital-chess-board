@@ -6,18 +6,21 @@
 
 #include "pgn.h"
 #include "piece_to_string_converter.h"
+#include "square_to_string_converter.h"
 
-void pgn::record_move(Stockfish::Move move, Stockfish::Position& pos) {
-    const std::string move_stirng = move_to_string(move, pos);
+void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos) {
+    const std::string move_stirng = move_to_string(from, to, pos);
     moves.push_back(move_stirng);
 }
 
-std::string pgn::move_to_string(Stockfish::Move move, Stockfish::Position& pos)
+std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos)
 {
+    Stockfish::Move move(from, to);
     Stockfish::Piece piece = pos.piece_on(move.from_sq());
     const std::string piece_str = piece_to_string_converter::convert(piece);
+    const std::string square_str = square_to_string_converter::convert(to);
 
-    return "";
+    return piece_str + square_str;
 }
 
 std::string pgn::get_pgn() {

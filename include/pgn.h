@@ -5,17 +5,19 @@
 #ifndef DIGITAL_CHESS_BOARD_PGN_H
 #define DIGITAL_CHESS_BOARD_PGN_H
 
-#include "position.h"
+#include "../thirdparty/Stockfish/src/position.h"
+#include "../thirdparty/Stockfish/src/types.h"
 
 class pgn {
 public:
-    void record_move(Stockfish::Move, Stockfish::Position&);
+    void record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::Position&);
     std::string get_pgn();
+    static std::string move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos);
 
 private:
     std::vector<std::string> moves;
 
-    std::string move_to_string(Stockfish::Move, Stockfish::Position&);
+
 };
 
 

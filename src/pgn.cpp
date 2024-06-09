@@ -13,13 +13,58 @@ void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::P
     moves.push_back(move_stirng);
 }
 
+pgn::castling pgn::is_castling_move(Stockfish::Piece& piece, Stockfish::Square& from, Stockfish::Square& to)
+{
+    if (piece == Stockfish::W_KING)
+    {
+        if (from == Stockfish::SQ_E1)
+        {
+            if (to == Stockfish::SQ_G1)
+            {
+                return pgn::short_castling;
+            } else if (to == Stockfish::SQ_C1)
+            {
+                return pgn::long_castling;
+            }
+        }
+    } else if (piece == Stockfish::B_KING)
+    {
+        if (from == Stockfish::SQ_E8)
+        {
+            if (to == Stockfish::SQ_G8)
+            {
+                return pgn::short_castling;
+            } else if (to == Stockfish::SQ_C8)
+            {
+                return pgn::long_castling;
+            }
+        }
+    }
+
+    return pgn::no_castling;
+}
+
 std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos)
 {
+    // check MoveType for PROMOTION, EN_PASSANT and CASTLING
+    // check ambiguous move
+
+    Stockfish::Piece piece = pos.piece_on(from);
+    const pgn::castling castling = is_castling_move(piece, from, to);
+
+    switch (castling) {
+        case pgn::castling::short_castling:
+            return "O-O";
+        case pgn::castling::long_castling:
+            return "O-O-O";
+        case no_castling:
+            break;
+    }
+
     Stockfish::Move move(from, to);
     const bool is_legal_move = pos.legal(move) && pos.pseudo_legal(move);
 
     if (is_legal_move) {
-        Stockfish::Piece piece = pos.piece_on(move.from_sq());
         const bool is_capture = pos.capture(move);
         const std::string piece_str = piece_to_string_converter::convert(piece);
         const std::string square_str = square_to_string_converter::convert(to);

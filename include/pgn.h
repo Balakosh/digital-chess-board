@@ -14,10 +14,15 @@ public:
     std::string get_pgn();
     static std::string move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos);
 
+    enum castling {
+        no_castling,
+        short_castling,
+        long_castling
+    };
+
 private:
     std::vector<std::string> moves;
-
-
+    static pgn::castling is_castling_move(Stockfish::Piece& piece, Stockfish::Square& from, Stockfish::Square& to);
 };
 
 

@@ -51,8 +51,13 @@ INSTANTIATE_TEST_SUITE_P(
                 PGNTestParams{"rnbqkbr1/pppppppp/8/8/2B1n3/8/PPPP1PPP/RNBQ1KNR w q - 0 4", Stockfish::Square::SQ_D1, Stockfish::Square::SQ_F3, "Qf3"},
                 PGNTestParams{"rnbqkbr1/pppppppp/8/8/2B1n3/5Q2/PPPP1PPP/RNB2KNR b q - 1 4", Stockfish::Square::SQ_E4, Stockfish::Square::SQ_F2, "Nxf2"},
                 PGNTestParams{"rnbqkbr1/pppppppp/8/8/2B5/5Q2/PPPP1nPP/RNB2KNR w q - 0 5", Stockfish::Square::SQ_F3, Stockfish::Square::SQ_F2, "Qxf2"},
+                // special moves
+                // castling
                 PGNTestParams{"r2qkbnr/ppp1pppp/2n5/1B1p4/4P1b1/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", Stockfish::Square::SQ_E1, Stockfish::Square::SQ_G1, "O-O"},
                 PGNTestParams{"r3kbnr/pppqpppp/2n5/1B1p4/4P1b1/5N2/PPPP1PPP/RNBQR1K1 b kq - 7 5", Stockfish::Square::SQ_E8, Stockfish::Square::SQ_C8, "O-O-O"},
-                PGNTestParams{"rnbqkbnr/1pp1pppp/8/p2pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3", Stockfish::Square::SQ_E5, Stockfish::Square::SQ_D6, "exd6"}
+                // en passant
+                PGNTestParams{"rnbqkbnr/1pp1pppp/8/p2pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3", Stockfish::Square::SQ_E5, Stockfish::Square::SQ_D6, "exd6"},
+                // ambiguous moves
+                PGNTestParams{"rnbqkb1r/pppp1ppp/5n2/4p3/4P3/8/PPPPNPPP/RNBQKB1R w KQkq - 2 3", Stockfish::Square::SQ_E2, Stockfish::Square::SQ_C3, "Nec3"}
         )
 );

@@ -8,6 +8,7 @@
 #include "piece_to_string_converter.h"
 #include "square_to_string_converter.h"
 #include "file_to_string_converter.h"
+#include "movegen.h"
 
 void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos) {
     const std::string move_stirng = move_to_string(from, to, pos);
@@ -61,12 +62,26 @@ bool pgn::is_en_passant(Stockfish::Piece& piece, Stockfish::Square& from, Stockf
     return false;
 }
 
+bool pgn::can_another_piece_reach(const Stockfish::Move& my_move,const Stockfish::Position& pos, Stockfish::PieceType pieceType, Stockfish::Square destSquare) {
+    Stockfish::ExtMove moveList[256];
+    Stockfish::ExtMove* end = generate<Stockfish::LEGAL>(pos, moveList);
+
+    for (Stockfish::ExtMove* move = moveList; move != end; ++move) {
+        if (my_move.raw() != move->raw() && pos.piece_on(move->from_sq()) == pieceType && move->to_sq() == destSquare) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos)
 {
-    // check MoveType for PROMOTION, EN_PASSANT and CASTLING
-    // check ambiguous move
+    // todo check PROMOTION
+    // todo check check
 
     Stockfish::Piece piece = pos.piece_on(from);
+    const Stockfish::PieceType piece_type = type_of(piece);
     const pgn::castling castling = is_castling_move(piece, from, to);
 
     switch (castling) {
@@ -91,6 +106,12 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
         const std::string piece_str = piece_to_string_converter::convert(piece);
         const std::string square_str = square_to_string_converter::convert(to);
         std::string capture_str = is_capture ? "x" : "";
+
+        if (can_another_piece_reach(move, pos, piece_type, to))
+        {
+            const Stockfish::File file_from = Stockfish::file_of(from);
+            capture_str.insert(0, file_to_string_converter::convert(file_from));
+        }
 
         if (is_capture && ((piece == Stockfish::W_PAWN) || (piece == Stockfish::B_PAWN)))
         {

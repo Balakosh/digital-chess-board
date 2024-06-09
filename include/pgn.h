@@ -24,6 +24,7 @@ private:
     std::vector<std::string> moves;
     static castling is_castling_move(const Stockfish::Piece& piece, const Stockfish::Square& from, const Stockfish::Square& to);
     static bool is_en_passant(Stockfish::Piece& piece, Stockfish::Square& from, Stockfish::Square& to);
+    static bool can_another_piece_reach(const Stockfish::Move& my_move, const Stockfish::Position& pos, Stockfish::PieceType pieceType, Stockfish::Square destSquare);
 
     static bool are_files_adjacent(Stockfish::File f1, Stockfish::File f2) {
         return std::abs(f1 - f2) == 1;
@@ -31,6 +32,10 @@ private:
 
     static bool are_ranks_adjacent(Stockfish::Rank r1, Stockfish::Rank r2) {
         return std::abs(r1 - r2) == 1;
+    }
+
+    static constexpr Stockfish::PieceType type_of(Stockfish::Piece pc) {
+        return Stockfish::PieceType((pc - 1) % 8 + 1);
     }
 };
 

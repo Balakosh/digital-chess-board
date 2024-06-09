@@ -14,7 +14,7 @@ void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::P
     moves.push_back(move_stirng);
 }
 
-pgn::castling pgn::is_castling_move(Stockfish::Piece& piece, Stockfish::Square& from, Stockfish::Square& to)
+pgn::castling pgn::is_castling_move(const Stockfish::Piece& piece, const Stockfish::Square& from, const Stockfish::Square& to)
 {
     if (piece == Stockfish::W_KING)
     {

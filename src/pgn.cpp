@@ -17,29 +17,16 @@ void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::P
 
 pgn::castling pgn::is_castling_move(const Stockfish::Piece& piece, const Stockfish::Square& from, const Stockfish::Square& to)
 {
-    if (piece == Stockfish::W_KING)
+    if ((piece == Stockfish::W_KING && from == Stockfish::SQ_E1) ||
+        (piece == Stockfish::B_KING && from == Stockfish::SQ_E8))
     {
-        if (from == Stockfish::SQ_E1)
+        if (to == Stockfish::SQ_G1 || to == Stockfish::SQ_G8)
         {
-            if (to == Stockfish::SQ_G1)
-            {
-                return pgn::short_castling;
-            } else if (to == Stockfish::SQ_C1)
-            {
-                return pgn::long_castling;
-            }
+            return pgn::short_castling;
         }
-    } else if (piece == Stockfish::B_KING)
-    {
-        if (from == Stockfish::SQ_E8)
+        else if (to == Stockfish::SQ_C1 || to == Stockfish::SQ_C8)
         {
-            if (to == Stockfish::SQ_G8)
-            {
-                return pgn::short_castling;
-            } else if (to == Stockfish::SQ_C8)
-            {
-                return pgn::long_castling;
-            }
+            return pgn::long_castling;
         }
     }
 

@@ -58,6 +58,8 @@ INSTANTIATE_TEST_SUITE_P(
                 // en passant
                 PGNTestParams{"rnbqkbnr/1pp1pppp/8/p2pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3", Stockfish::Square::SQ_E5, Stockfish::Square::SQ_D6, "exd6"},
                 // ambiguous moves
-                PGNTestParams{"rnbqkb1r/pppp1ppp/5n2/4p3/4P3/8/PPPPNPPP/RNBQKB1R w KQkq - 2 3", Stockfish::Square::SQ_E2, Stockfish::Square::SQ_C3, "Nec3"}
+                PGNTestParams{"rnbqkb1r/pppp1ppp/5n2/4p3/4P3/8/PPPPNPPP/RNBQKB1R w KQkq - 2 3", Stockfish::Square::SQ_E2, Stockfish::Square::SQ_C3, "Nec3"},
+                PGNTestParams{"r2qr1k1/pppbbppp/2np1n2/1B2p3/4P3/2NP1N2/PPPBQPPP/R4RK1 w - - 5 9", Stockfish::Square::SQ_F1, Stockfish::Square::SQ_E1, "Rfe1"},
+                PGNTestParams{"7k/R7/8/8/8/8/R7/7K w - - 0 1", Stockfish::Square::SQ_A7, Stockfish::Square::SQ_A5, "R7a5"}
         )
 );

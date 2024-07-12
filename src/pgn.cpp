@@ -8,6 +8,7 @@
 #include "piece_to_string_converter.h"
 #include "square_to_string_converter.h"
 #include "file_to_string_converter.h"
+#include "rank_to_string_converter.h"
 #include "movegen.h"
 
 void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos) {
@@ -96,8 +97,20 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
 
         if (can_another_piece_reach(move, pos, piece_type, to))
         {
-            const Stockfish::File file_from = Stockfish::file_of(from);
-            capture_str.insert(0, file_to_string_converter::convert(file_from));
+            if (Stockfish::rank_of(from) == Stockfish::rank_of(to))
+            {
+                const Stockfish::File file_from = Stockfish::file_of(from);
+                capture_str.insert(0, file_to_string_converter::convert(file_from));
+            }
+            else if (Stockfish::file_of(from) == Stockfish::file_of(to))
+            {
+                const Stockfish::Rank rank_from = Stockfish::rank_of(from);
+                capture_str.insert(0, rank_to_string_converter::convert(rank_from));
+            } else
+            {
+                const Stockfish::File file_from = Stockfish::file_of(from);
+                capture_str.insert(0, file_to_string_converter::convert(file_from));
+            }
         }
 
         if (is_capture && ((piece == Stockfish::W_PAWN) || (piece == Stockfish::B_PAWN)))

@@ -55,7 +55,7 @@ bool pgn::can_another_piece_reach(const Stockfish::Move& my_move,const Stockfish
     Stockfish::ExtMove* end = generate<Stockfish::LEGAL>(pos, moveList);
 
     for (Stockfish::ExtMove* move = moveList; move != end; ++move) {
-        if (my_move.raw() != move->raw() && pos.piece_on(move->from_sq()) == pieceType && move->to_sq() == destSquare) {
+        if (my_move.raw() != move->raw() && Stockfish::type_of(pos.piece_on(move->from_sq())) == pieceType && move->to_sq() == destSquare) {
             return true;
         }
     }

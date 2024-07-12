@@ -51,8 +51,8 @@ bool pgn::is_en_passant(Stockfish::Piece& piece, Stockfish::Square& from, Stockf
 }
 
 bool pgn::can_another_piece_reach(const Stockfish::Move& my_move,const Stockfish::Position& pos, Stockfish::PieceType pieceType, Stockfish::Square destSquare) {
-    std::array<Stockfish::ExtMove, 256> moveList = {};
-    Stockfish::ExtMove* end = generate<Stockfish::LEGAL>(pos, &moveList[0]);
+    Stockfish::ExtMove moveList[256];
+    Stockfish::ExtMove* end = generate<Stockfish::LEGAL>(pos, moveList);
 
     for (Stockfish::ExtMove* move = moveList; move != end; ++move) {
         if (my_move.raw() != move->raw() && pos.piece_on(move->from_sq()) == pieceType && move->to_sq() == destSquare) {

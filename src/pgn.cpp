@@ -79,7 +79,7 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
     }
 
     if (((piece == Stockfish::W_PAWN) || (piece == Stockfish::B_PAWN)) && Stockfish::rank_of(to) == Stockfish::RANK_8) {
-        move = Stockfish::Move::make<Stockfish::MoveType::PROMOTION>(from, to);
+        move = Stockfish::Move::make<Stockfish::MoveType::PROMOTION>(from, to, Stockfish::PieceType::QUEEN);
     }
 
     const bool is_legal_move = pos.legal(move) && pos.pseudo_legal(move);

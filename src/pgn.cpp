@@ -60,8 +60,6 @@ bool pgn::can_another_piece_reach(const Stockfish::Move& my_move,const Stockfish
 
 std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos)
 {
-    // todo check PROMOTION
-
     Stockfish::Piece piece = pos.piece_on(from);
     const Stockfish::PieceType piece_type = type_of(piece);
     const pgn::castling castling = is_castling_move(piece, from, to);
@@ -80,6 +78,10 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
         move = Stockfish::Move::make<Stockfish::MoveType::EN_PASSANT>(from, to);
     }
 
+    if (((piece == Stockfish::W_PAWN) || (piece == Stockfish::B_PAWN)) && Stockfish::rank_of(to) == Stockfish::RANK_8) {
+        move = Stockfish::Move::make<Stockfish::MoveType::PROMOTION>(from, to);
+    }
+
     const bool is_legal_move = pos.legal(move) && pos.pseudo_legal(move);
 
     if (is_legal_move) {
@@ -87,6 +89,7 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
         const std::string piece_str = piece_to_string_converter::convert(piece);
         const std::string square_str = square_to_string_converter::convert(to);
         std::string capture_str = is_capture ? "x" : "";
+        std::string check_str;
 
         if (can_another_piece_reach(move, pos, piece_type, to)) {
             if (Stockfish::rank_of(from) == Stockfish::rank_of(to)) {
@@ -108,10 +111,16 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
         }
 
         if (pos.gives_check(move)) {
-            return piece_str + capture_str + square_str + "+";
+            check_str = "+";
+        } else {
+            check_str = "";
         }
 
-        return piece_str + capture_str + square_str;
+        if (move.type_of() == Stockfish::PROMOTION) {
+            return square_str + "=Q" + check_str;
+        }
+
+        return piece_str + capture_str + square_str + check_str;
     } else {
         return "illegal move!";
     }

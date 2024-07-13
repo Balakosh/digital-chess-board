@@ -66,6 +66,7 @@ INSTANTIATE_TEST_SUITE_P(
                 PGNTestParams{"rnb1kb1r/ppp1pppp/8/4q3/6n1/2N2N2/PPPPBPPP/R1BQ1RK1 b kq - 7 6", Stockfish::Square::SQ_E5, Stockfish::Square::SQ_H2, "Qxh2+"},
                 PGNTestParams{"rnb1kb1r/ppp1pppp/8/3N4/6n1/8/PPPPBPP1/R1BQ1RK1 w kq - 2 9", Stockfish::Square::SQ_D5, Stockfish::Square::SQ_C7, "Nxc7+"},
                 //Promotion
-                PGNTestParams{"8/P6k/8/8/8/8/1p5K/8 w - - 0 1", Stockfish::Square::SQ_A7, Stockfish::Square::SQ_A8, "a8=Q"}
+                PGNTestParams{"8/P6k/8/8/8/8/1p5K/8 w - - 0 1", Stockfish::Square::SQ_A7, Stockfish::Square::SQ_A8, "a8=Q"},
+                PGNTestParams{"7k/3P4/8/8/8/8/6K1/8 w - - 0 1", Stockfish::Square::SQ_D7, Stockfish::Square::SQ_D8, "d8=Q+"}
         )
 );

@@ -66,7 +66,6 @@ bool pgn::can_another_piece_reach(const Stockfish::Move& my_move,const Stockfish
 std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos)
 {
     // todo check PROMOTION
-    // todo check check
 
     Stockfish::Piece piece = pos.piece_on(from);
     const Stockfish::PieceType piece_type = type_of(piece);
@@ -117,6 +116,10 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
         {
             const Stockfish::File file_from = Stockfish::file_of(from);
             capture_str.insert(0, file_to_string_converter::convert(file_from));
+        }
+
+        if (pos.gives_check(move)) {
+            return piece_str + capture_str + square_str + "+";
         }
 
         return piece_str + capture_str + square_str;

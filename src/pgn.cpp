@@ -18,15 +18,11 @@ void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::P
 
 pgn::castling pgn::is_castling_move(const Stockfish::Piece& piece, const Stockfish::Square& from, const Stockfish::Square& to)
 {
-    if ((piece == Stockfish::W_KING && from == Stockfish::SQ_E1) ||
-        (piece == Stockfish::B_KING && from == Stockfish::SQ_E8))
-    {
-        if (to == Stockfish::SQ_G1 || to == Stockfish::SQ_G8)
-        {
+    if ((piece == Stockfish::W_KING && from == Stockfish::SQ_E1) || (piece == Stockfish::B_KING && from == Stockfish::SQ_E8)) {
+        if (to == Stockfish::SQ_G1 || to == Stockfish::SQ_G8) {
             return pgn::short_castling;
         }
-        else if (to == Stockfish::SQ_C1 || to == Stockfish::SQ_C8)
-        {
+        else if (to == Stockfish::SQ_C1 || to == Stockfish::SQ_C8) {
             return pgn::long_castling;
         }
     }
@@ -36,8 +32,7 @@ pgn::castling pgn::is_castling_move(const Stockfish::Piece& piece, const Stockfi
 
 bool pgn::is_en_passant(Stockfish::Piece& piece, Stockfish::Square& from, Stockfish::Square& to)
 {
-    if(piece == Stockfish::W_PAWN || piece == Stockfish::B_PAWN)
-    {
+    if(piece == Stockfish::W_PAWN || piece == Stockfish::B_PAWN) {
         const Stockfish::File file_from = Stockfish::file_of(from);
         const Stockfish::File file_to = Stockfish::file_of(to);
 
@@ -81,8 +76,7 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
     }
 
     Stockfish::Move move(from, to);
-    if (is_en_passant(piece, from, to))
-    {
+    if (is_en_passant(piece, from, to)) {
         move = Stockfish::Move::make<Stockfish::MoveType::EN_PASSANT>(from, to);
     }
 
@@ -94,26 +88,21 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
         const std::string square_str = square_to_string_converter::convert(to);
         std::string capture_str = is_capture ? "x" : "";
 
-        if (can_another_piece_reach(move, pos, piece_type, to))
-        {
-            if (Stockfish::rank_of(from) == Stockfish::rank_of(to))
-            {
+        if (can_another_piece_reach(move, pos, piece_type, to)) {
+            if (Stockfish::rank_of(from) == Stockfish::rank_of(to)) {
                 const Stockfish::File file_from = Stockfish::file_of(from);
                 capture_str.insert(0, file_to_string_converter::convert(file_from));
             }
-            else if (Stockfish::file_of(from) == Stockfish::file_of(to))
-            {
+            else if (Stockfish::file_of(from) == Stockfish::file_of(to)) {
                 const Stockfish::Rank rank_from = Stockfish::rank_of(from);
                 capture_str.insert(0, rank_to_string_converter::convert(rank_from));
-            } else
-            {
+            } else {
                 const Stockfish::File file_from = Stockfish::file_of(from);
                 capture_str.insert(0, file_to_string_converter::convert(file_from));
             }
         }
 
-        if (is_capture && ((piece == Stockfish::W_PAWN) || (piece == Stockfish::B_PAWN)))
-        {
+        if (is_capture && ((piece == Stockfish::W_PAWN) || (piece == Stockfish::B_PAWN))) {
             const Stockfish::File file_from = Stockfish::file_of(from);
             capture_str.insert(0, file_to_string_converter::convert(file_from));
         }

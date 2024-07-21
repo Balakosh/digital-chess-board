@@ -55,6 +55,7 @@ INSTANTIATE_TEST_SUITE_P(
                 // castling
                 PGNTestParams{"r2qkbnr/ppp1pppp/2n5/1B1p4/4P1b1/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4", Stockfish::Square::SQ_E1, Stockfish::Square::SQ_G1, "O-O"},
                 PGNTestParams{"r3kbnr/pppqpppp/2n5/1B1p4/4P1b1/5N2/PPPP1PPP/RNBQR1K1 b kq - 7 5", Stockfish::Square::SQ_E8, Stockfish::Square::SQ_C8, "O-O-O"},
+                PGNTestParams{"5k2/8/8/8/8/8/8/4K2R w K - 0 1", Stockfish::Square::SQ_E1, Stockfish::Square::SQ_G1, "O-O+"},
                 // en passant
                 PGNTestParams{"rnbqkbnr/1pp1pppp/8/p2pP3/8/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 3", Stockfish::Square::SQ_E5, Stockfish::Square::SQ_D6, "exd6"},
                 // ambiguous moves

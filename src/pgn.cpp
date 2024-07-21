@@ -16,18 +16,18 @@ void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::P
     moves.push_back(move_stirng);
 }
 
-pgn::castling pgn::is_castling_move(const Stockfish::Piece& piece, const Stockfish::Square& from, const Stockfish::Square& to)
+bool pgn::is_castling_move(const Stockfish::Piece& piece, const Stockfish::Square& from, const Stockfish::Square& to)
 {
     if ((piece == Stockfish::W_KING && from == Stockfish::SQ_E1) || (piece == Stockfish::B_KING && from == Stockfish::SQ_E8)) {
         if (to == Stockfish::SQ_G1 || to == Stockfish::SQ_G8) {
-            return pgn::short_castling;
+            return true;
         }
         else if (to == Stockfish::SQ_C1 || to == Stockfish::SQ_C8) {
-            return pgn::long_castling;
+            return true;
         }
     }
 
-    return pgn::no_castling;
+    return false;
 }
 
 bool pgn::is_en_passant(Stockfish::Piece& piece, Stockfish::Square& from, Stockfish::Square& to)
@@ -62,16 +62,6 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
 {
     Stockfish::Piece piece = pos.piece_on(from);
     const Stockfish::PieceType piece_type = type_of(piece);
-    const pgn::castling castling = is_castling_move(piece, from, to);
-
-    switch (castling) {
-        case pgn::castling::short_castling:
-            return "O-O";
-        case pgn::castling::long_castling:
-            return "O-O-O";
-        case no_castling:
-            break;
-    }
 
     Stockfish::Move move(from, to);
     if (is_en_passant(piece, from, to)) {
@@ -82,7 +72,25 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
         move = Stockfish::Move::make<Stockfish::MoveType::PROMOTION>(from, to, Stockfish::PieceType::QUEEN);
     }
 
-    const bool is_legal_move = pos.legal(move) && pos.pseudo_legal(move);
+    if (is_castling_move(piece, from, to)) {
+        if (piece == Stockfish::W_KING) {
+            if (to == Stockfish::SQ_G1) {
+                move = Stockfish::Move::make<Stockfish::MoveType::CASTLING>(from, Stockfish::Square::SQ_H1);
+            } else if (to == Stockfish::SQ_C1) {
+                move = Stockfish::Move::make<Stockfish::MoveType::CASTLING>(from, Stockfish::Square::SQ_A1);
+            }
+        } else if (piece == Stockfish::B_KING) {
+            if (to == Stockfish::SQ_G8) {
+                move = Stockfish::Move::make<Stockfish::MoveType::CASTLING>(from, Stockfish::Square::SQ_H8);
+            } else if (to == Stockfish::SQ_C8) {
+                move = Stockfish::Move::make<Stockfish::MoveType::CASTLING>(from, Stockfish::Square::SQ_A8);
+            }
+        }
+    }
+
+    const bool legal_move = pos.legal(move);
+    const bool pseudo_legal = pos.pseudo_legal(move);
+    const bool is_legal_move = legal_move && pseudo_legal;
 
     if (is_legal_move) {
         const bool is_capture = pos.capture(move);
@@ -118,6 +126,14 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
 
         if (move.type_of() == Stockfish::PROMOTION) {
             return square_str + "=Q" + check_str;
+        }
+
+        if (move.type_of() == Stockfish::CASTLING) {
+            if (to == Stockfish::SQ_G1 || to == Stockfish::SQ_G8) {
+                return "O-O" + check_str;
+            } else if (to == Stockfish::SQ_C1 || to == Stockfish::SQ_C8) {
+                return "O-O-O" + check_str;
+            }
         }
 
         return piece_str + capture_str + square_str + check_str;

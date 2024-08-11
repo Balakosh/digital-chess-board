@@ -12,8 +12,8 @@
 #include "movegen.h"
 
 void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos) {
-    const std::string move_stirng = move_to_string(from, to, pos);
-    moves.push_back(move_stirng);
+    const std::string move_string = move_to_string(from, to, pos);
+    moves.push_back(move_string);
 }
 
 bool pgn::is_castling_move(const Stockfish::Piece& piece, const Stockfish::Square& from, const Stockfish::Square& to)

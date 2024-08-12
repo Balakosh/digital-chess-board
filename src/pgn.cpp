@@ -11,8 +11,8 @@
 #include "rank_to_string_converter.h"
 #include "movegen.h"
 
-void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos) {
-    const std::string move_string = move_to_string(from, to, pos);
+void pgn::record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos, Stockfish::StateInfo& stateInfo) {
+    const std::string move_string = move_to_string(from, to, pos, stateInfo);
     moves.push_back(move_string);
 }
 
@@ -58,8 +58,9 @@ bool pgn::can_another_piece_reach(const Stockfish::Move& my_move,const Stockfish
     return false;
 }
 
-std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos)
+std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos, Stockfish::StateInfo& stateInfo)
 {
+    std::string move_string = {};
     Stockfish::Piece piece = pos.piece_on(from);
     const Stockfish::PieceType piece_type = type_of(piece);
 
@@ -125,21 +126,27 @@ std::string pgn::move_to_string(Stockfish::Square from, Stockfish::Square to, St
         }
 
         if (move.type_of() == Stockfish::PROMOTION) {
-            return square_str + "=Q" + check_str;
+            move_string = square_str + "=Q" + check_str;
         }
 
         if (move.type_of() == Stockfish::CASTLING) {
             if (to == Stockfish::SQ_G1 || to == Stockfish::SQ_G8) {
-                return "O-O" + check_str;
+                move_string = "O-O" + check_str;
             } else if (to == Stockfish::SQ_C1 || to == Stockfish::SQ_C8) {
-                return "O-O-O" + check_str;
+                move_string = "O-O-O" + check_str;
             }
         }
 
-        return piece_str + capture_str + square_str + check_str;
+        if (move.type_of() == Stockfish::NORMAL || move.type_of() == Stockfish::EN_PASSANT)
+        {
+            move_string = piece_str + capture_str + square_str + check_str;
+        }
     } else {
-        return "illegal move!";
+        move_string = "illegal move!";
     }
+
+    pos.do_move(move, stateInfo);
+    return move_string;
 }
 
 std::string pgn::get_pgn() {
@@ -150,6 +157,7 @@ std::string pgn::get_pgn() {
         }
         pgn_string << moves[i] << " ";
     }
-    return pgn_string.str();
+
+    return pgn_string.str().erase(pgn_string.str().length() - 1);
 }
 

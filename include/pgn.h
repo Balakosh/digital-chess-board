@@ -10,9 +10,9 @@
 
 class pgn {
 public:
-    void record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::Position&);
+    void record_move(Stockfish::Square from, Stockfish::Square to, Stockfish::Position&, Stockfish::StateInfo& stateInfo);
     std::string get_pgn();
-    static std::string move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos);
+    static std::string move_to_string(Stockfish::Square from, Stockfish::Square to, Stockfish::Position& pos, Stockfish::StateInfo& stateInfo);
 
 private:
     std::vector<std::string> moves;

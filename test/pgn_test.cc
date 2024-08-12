@@ -14,7 +14,8 @@ struct PGNTestParams {
 class PGNTest : public ::testing::TestWithParam<PGNTestParams> {
 protected:
     Stockfish::Position pos;
-    Stockfish::StateInfo si;
+    Stockfish::StateInfo states[256] = {};
+    pgn pgn_moves;
 
     void SetUp() override {
         Stockfish::Bitboards::init();
@@ -27,9 +28,9 @@ protected:
 
 TEST_P(PGNTest, MoveToStringTest) {
     const auto& params = GetParam();
-    pos.set(params.fen_position, false, &si);
+    pos.set(params.fen_position, false, &states[0]);
 
-    const std::string move = pgn::move_to_string(params.from, params.to, pos);
+    const std::string move = pgn::move_to_string(params.from, params.to, pos, states[1]);
 
     ASSERT_EQ(params.expected_move, move);
 }
@@ -71,3 +72,16 @@ INSTANTIATE_TEST_SUITE_P(
                 PGNTestParams{"7k/3P4/8/8/8/8/6K1/8 w - - 0 1", Stockfish::Square::SQ_D7, Stockfish::Square::SQ_D8, "d8=Q+"}
         )
 );
+
+TEST_F(PGNTest, GetPGNTest) {
+    pos.set("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", false, &states[0]);
+
+    std::string start_fen = pos.fen();
+    pgn_moves.record_move(Stockfish::Square::SQ_E2, Stockfish::Square::SQ_E4, pos, states[1]);
+    std::string first_move_fen = pos.fen();
+    pgn_moves.record_move(Stockfish::Square::SQ_E7, Stockfish::Square::SQ_E5, pos, states[2]);
+    std::string second_move_fen = pos.fen();
+
+    const std::string pgn_string = pgn_moves.get_pgn();
+    EXPECT_EQ("1. e4 e5", pgn_string);
+}

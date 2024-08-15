@@ -4,3 +4,6 @@
 [submodule "thirdparty/Stockfish"]
 	path = thirdparty/Stockfish
 	url = https://github.com/official-stockfish/Stockfish.git
+[submodule "thirdparty/curl"]
+	path = thirdparty/curl
+	url = https://github.com/curl/curl.git

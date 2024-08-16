@@ -13,6 +13,8 @@ set(SOURCES
         ../include/file_to_string_converter.h
         rank_to_string_converter.cpp
         ../include/rank_to_string_converter.h
+        lichess.cpp
+        ../include/lichess.h
         # Add other project-specific source files here if needed
 )
 
@@ -35,6 +37,12 @@ include_directories(
 # Add the library target
 add_library(digital-chess-board-lib ${SOURCES})
 
+# Find and link the cURL package
+find_package(CURL REQUIRED)
+target_link_libraries(digital-chess-board-lib CURL::libcurl)
+
 # Add the executable target
 add_executable(digital-chess-board main.cpp)
+
+# Link the executable to your library
 target_link_libraries(digital-chess-board digital-chess-board-lib)

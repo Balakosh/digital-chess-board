@@ -8,6 +8,7 @@ add_executable(runTests
         pgn_test.cc
         piece_to_string_converter_test.cc
         square_to_string_converter_test.cc
+        lichess_test.cc
 )
 target_link_libraries(runTests gtest gtest_main pthread digital-chess-board-lib)
 

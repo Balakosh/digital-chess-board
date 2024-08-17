@@ -8,6 +8,16 @@
 
 #include "lichess.h"
 
+std::string lichess::get_token() {
+    const char* token = std::getenv("LICHESS_API_TOKEN");
+    if (token == nullptr) {
+        std::cerr << "Environment variable LICHESS_API_TOKEN not set!" << std::endl;
+        return {};
+    }
+
+    return token;
+}
+
 void lichess::pgn_upload() {
     CURL *curl;
     CURLcode res;
@@ -23,7 +33,7 @@ void lichess::pgn_upload() {
     1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 d6 8. c3 O-O 9. h3
     )";
 
-    std::string token = "lip_uQkejimvL6cKQy0AwPuO";
+    std::string token = get_token();
     std::string url = "https://lichess.org/api/import";
 
     struct curl_slist *headers = NULL;

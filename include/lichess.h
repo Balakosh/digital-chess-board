@@ -8,7 +8,7 @@
 
 class lichess {
 public:
-    static void pgn_upload();
+    static void pgn_upload(std::string pgn);
 private:
     static std::string get_token();
 };
